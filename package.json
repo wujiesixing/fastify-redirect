@@ -1,6 +1,6 @@
 {
   "name": "fastify-redirect",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
-    "test": "rollup --config rollup.config.ts --configPlugin typescript --watch"
+    "test": "rollup --config rollup.config.ts --configPlugin typescript --watch",
+    "postinstall": "prisma generate"
   },
   "keywords": [
     "fastify",
