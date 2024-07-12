@@ -1,0 +1,1 @@
+# Fastify Plugin: fastify-redirect
