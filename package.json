@@ -1,6 +1,6 @@
 {
   "name": "fastify-redirect",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -15,7 +15,8 @@
   },
   "files": [
     "dist",
-    "db"
+    "db",
+    "prisma"
   ],
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
