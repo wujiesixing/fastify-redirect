@@ -51,7 +51,7 @@ export async function getContinent(country: string) {
       },
     })) ?? {};
 
-  return Continent;
+  return Continent ?? undefined;
 }
 
 export function country2region(country: string) {

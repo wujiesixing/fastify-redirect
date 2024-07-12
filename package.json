@@ -1,6 +1,6 @@
 {
   "name": "fastify-redirect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -49,6 +49,7 @@
     "rollup": "^4.18.1",
     "rollup-plugin-delete": "^2.0.0",
     "tslib": "^2.6.3",
+    "tsx": "^4.16.2",
     "typescript": "^5.5.3"
   },
   "peerDependencies": {

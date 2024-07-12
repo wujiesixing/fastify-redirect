@@ -36,7 +36,7 @@ async function getContinent(country) {
             ISO: country,
         },
     })) ?? {};
-    return Continent;
+    return Continent ?? undefined;
 }
 function country2region(country) {
     return country;

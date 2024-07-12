@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { dirname, resolve as resolve$1 } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PrismaClient } from '@prisma/client';
@@ -45,10 +46,22 @@ function parseAcceptLanguage(al) {
 }
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-function resolve(...args) {
-    return resolve$1(__dirname, ...args);
+function findRootDir(dir = __dirname) {
+    const packagePath = resolve$1(dir, "package.json");
+    if (existsSync(packagePath)) {
+        return dir;
+    }
+    const parentDir = resolve$1(dir, "..");
+    if (parentDir === dir) {
+        throw new Error("Could not find package.json");
+    }
+    return findRootDir(parentDir);
 }
-let prisma;
+const __rootdir = findRootDir();
+function resolve(...args) {
+    return resolve$1(__rootdir, ...args);
+}
+let prisma = null;
 function prismaClient() {
     if (!prisma) {
         prisma = new PrismaClient();
@@ -58,8 +71,8 @@ function prismaClient() {
 async function prismaDisconnect() {
     if (prisma) {
         await prisma.$disconnect();
-        prisma = undefined;
+        prisma = null;
     }
 }
 
-export { parseAcceptLanguage, prismaClient, prismaDisconnect, resolve };
+export { __rootdir, findRootDir, parseAcceptLanguage, prismaClient, prismaDisconnect, resolve };

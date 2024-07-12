@@ -1,5 +1,6 @@
 'use strict';
 
+var node_fs = require('node:fs');
 var node_path = require('node:path');
 var node_url = require('node:url');
 var client = require('@prisma/client');
@@ -48,10 +49,22 @@ function parseAcceptLanguage(al) {
 }
 const __filename$1 = node_url.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.src || new URL('cjs/utils.cjs', document.baseURI).href)));
 const __dirname$1 = node_path.dirname(__filename$1);
-function resolve(...args) {
-    return node_path.resolve(__dirname$1, ...args);
+function findRootDir(dir = __dirname$1) {
+    const packagePath = node_path.resolve(dir, "package.json");
+    if (node_fs.existsSync(packagePath)) {
+        return dir;
+    }
+    const parentDir = node_path.resolve(dir, "..");
+    if (parentDir === dir) {
+        throw new Error("Could not find package.json");
+    }
+    return findRootDir(parentDir);
 }
-let prisma;
+const __rootdir = findRootDir();
+function resolve(...args) {
+    return node_path.resolve(__rootdir, ...args);
+}
+let prisma = null;
 function prismaClient() {
     if (!prisma) {
         prisma = new client.PrismaClient();
@@ -61,10 +74,12 @@ function prismaClient() {
 async function prismaDisconnect() {
     if (prisma) {
         await prisma.$disconnect();
-        prisma = undefined;
+        prisma = null;
     }
 }
 
+exports.__rootdir = __rootdir;
+exports.findRootDir = findRootDir;
 exports.parseAcceptLanguage = parseAcceptLanguage;
 exports.prismaClient = prismaClient;
 exports.prismaDisconnect = prismaDisconnect;
