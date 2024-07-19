@@ -1,6 +1,6 @@
 {
   "name": "fastify-redirect",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -10,7 +10,7 @@
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.cjs",
-      "types": "./dist/types/index.d.js"
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
