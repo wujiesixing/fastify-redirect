@@ -64,7 +64,7 @@ var plugin = plugin$1(async function (fastify, options) {
         if (!isRegionOk) {
             reply.clearCookie("region");
         }
-        reply.code(302).redirect(`/${region || options.defaultRegion}${url}`);
+        reply.code(302).redirect(`/${region || options.fallbackRegion}${url}`);
     });
     fastify.addHook("onClose", async () => {
         await prismaDisconnect();

@@ -7,7 +7,7 @@ import type { HTTPMethods } from "fastify";
 
 interface Options {
   regions: string[];
-  defaultRegion: string;
+  fallbackRegion: string;
   country2region?: (country: string) => Promise<string | undefined>;
   ignore?: Array<RegExp | string>;
   domain?: string;
@@ -95,7 +95,7 @@ export default plugin(
         reply.clearCookie("region");
       }
 
-      reply.code(302).redirect(`/${region || options.defaultRegion}${url}`);
+      reply.code(302).redirect(`/${region || options.fallbackRegion}${url}`);
     });
     fastify.addHook("onClose", async () => {
       await prismaDisconnect();

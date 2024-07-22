@@ -1,6 +1,6 @@
 interface Options {
     regions: string[];
-    defaultRegion: string;
+    fallbackRegion: string;
     country2region?: (country: string) => Promise<string | undefined>;
     ignore?: Array<RegExp | string>;
     domain?: string;
