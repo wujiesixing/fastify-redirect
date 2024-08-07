@@ -3,7 +3,6 @@
 var node_fs = require('node:fs');
 var node_path = require('node:path');
 var node_url = require('node:url');
-require('@prisma/client');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 const acceptLanguageRegex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;

@@ -1,7 +1,6 @@
 import { existsSync } from 'node:fs';
 import { dirname, resolve as resolve$1 } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import '@prisma/client';
 
 const acceptLanguageRegex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;
 function parseAcceptLanguage(al) {
