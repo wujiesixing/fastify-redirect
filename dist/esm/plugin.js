@@ -1,6 +1,5 @@
 import plugin$1 from 'fastify-plugin';
 import { getCountry, country2region } from './region.js';
-import { prismaDisconnect } from './utils.js';
 
 var plugin = plugin$1(async function (fastify, options) {
     fastify.addHook("onRequest", async (request, reply) => {
@@ -34,7 +33,7 @@ var plugin = plugin$1(async function (fastify, options) {
         }
         let isRegionOk = false;
         if (!country) {
-            country = await getCountry(request);
+            country = getCountry(request);
             if (country) {
                 reply.setCookie("country", country, {
                     domain: options.domain,
@@ -65,9 +64,6 @@ var plugin = plugin$1(async function (fastify, options) {
             reply.clearCookie("region");
         }
         reply.code(302).redirect(`/${region || options.fallbackRegion}${url}`);
-    });
-    fastify.addHook("onClose", async () => {
-        await prismaDisconnect();
     });
 }, {
     name: "fastify-redirect",

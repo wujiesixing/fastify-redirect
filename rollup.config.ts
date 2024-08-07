@@ -1,3 +1,4 @@
+import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import del from "rollup-plugin-delete";
@@ -28,6 +29,7 @@ export default defineConfig({
   ],
   plugins: [
     del({ targets: "dist/*" }),
+    json(),
     typescript({
       tsconfig: "tsconfig.json",
     }),

@@ -2,16 +2,15 @@ import { readFileSync } from "node:fs";
 
 import { Reader } from "@maxmind/geoip2-node";
 
-import { parseAcceptLanguage, prismaClient, resolve } from "./utils";
+import countries from "./countries.json";
+import { parseAcceptLanguage, resolve } from "./utils";
 
 import type { FastifyRequest } from "fastify";
 
 const dbBuffer = readFileSync(resolve("./db/GeoLite2-Country.mmdb"));
 const dbReader = Reader.openBuffer(dbBuffer);
 
-export async function getCountry(request: FastifyRequest) {
-  const prisma = prismaClient();
-
+export function getCountry(request: FastifyRequest) {
   let country;
 
   try {
@@ -24,14 +23,7 @@ export async function getCountry(request: FastifyRequest) {
     const region = parseAcceptLanguage(Array.isArray(al) ? al[0] : al)[0]
       ?.region;
 
-    if (
-      region &&
-      (await prisma.countries.findUnique({
-        where: {
-          ISO: region.toUpperCase(),
-        },
-      }))
-    ) {
+    if (region && countries[region.toUpperCase() as "AD"]) {
       country = region;
     }
   }
@@ -39,17 +31,10 @@ export async function getCountry(request: FastifyRequest) {
   return country;
 }
 
-export async function getContinent(country: string) {
-  const prisma = prismaClient();
-
+export function getContinent(country: string) {
   country = country.toUpperCase();
 
-  const { Continent } =
-    (await prisma.countries.findUnique({
-      where: {
-        ISO: country,
-      },
-    })) ?? {};
+  const { Continent } = countries[country as "AD"] ?? {};
 
   return Continent ?? undefined;
 }

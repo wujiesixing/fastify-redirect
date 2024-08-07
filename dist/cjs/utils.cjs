@@ -3,7 +3,7 @@
 var node_fs = require('node:fs');
 var node_path = require('node:path');
 var node_url = require('node:url');
-var client = require('@prisma/client');
+require('@prisma/client');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 const acceptLanguageRegex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;
@@ -64,23 +64,8 @@ const __rootdir = findRootDir();
 function resolve(...args) {
     return node_path.resolve(__rootdir, ...args);
 }
-let prisma = null;
-function prismaClient() {
-    if (!prisma) {
-        prisma = new client.PrismaClient();
-    }
-    return prisma;
-}
-async function prismaDisconnect() {
-    if (prisma) {
-        await prisma.$disconnect();
-        prisma = null;
-    }
-}
 
 exports.__rootdir = __rootdir;
 exports.findRootDir = findRootDir;
 exports.parseAcceptLanguage = parseAcceptLanguage;
-exports.prismaClient = prismaClient;
-exports.prismaDisconnect = prismaDisconnect;
 exports.resolve = resolve;

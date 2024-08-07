@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var plugin$1 = require('fastify-plugin');
 var region = require('./region.cjs');
-var utils = require('./utils.cjs');
 
 var plugin = plugin$1(async function (fastify, options) {
     fastify.addHook("onRequest", async (request, reply) => {
@@ -38,7 +37,7 @@ var plugin = plugin$1(async function (fastify, options) {
         }
         let isRegionOk = false;
         if (!country) {
-            country = await region.getCountry(request);
+            country = region.getCountry(request);
             if (country) {
                 reply.setCookie("country", country, {
                     domain: options.domain,
@@ -69,9 +68,6 @@ var plugin = plugin$1(async function (fastify, options) {
             reply.clearCookie("region");
         }
         reply.code(302).redirect(`/${region$1 || options.fallbackRegion}${url}`);
-    });
-    fastify.addHook("onClose", async () => {
-        await utils.prismaDisconnect();
     });
 }, {
     name: "fastify-redirect",

@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { dirname, resolve as resolve$1 } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PrismaClient } from '@prisma/client';
+import '@prisma/client';
 
 const acceptLanguageRegex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;
 function parseAcceptLanguage(al) {
@@ -61,18 +61,5 @@ const __rootdir = findRootDir();
 function resolve(...args) {
     return resolve$1(__rootdir, ...args);
 }
-let prisma = null;
-function prismaClient() {
-    if (!prisma) {
-        prisma = new PrismaClient();
-    }
-    return prisma;
-}
-async function prismaDisconnect() {
-    if (prisma) {
-        await prisma.$disconnect();
-        prisma = null;
-    }
-}
 
-export { __rootdir, findRootDir, parseAcceptLanguage, prismaClient, prismaDisconnect, resolve };
+export { __rootdir, findRootDir, parseAcceptLanguage, resolve };

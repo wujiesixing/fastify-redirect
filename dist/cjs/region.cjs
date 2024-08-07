@@ -2,12 +2,12 @@
 
 var node_fs = require('node:fs');
 var geoip2Node = require('@maxmind/geoip2-node');
+var countries = require('./countries.json.cjs');
 var utils = require('./utils.cjs');
 
 const dbBuffer = node_fs.readFileSync(utils.resolve("./db/GeoLite2-Country.mmdb"));
 const dbReader = geoip2Node.Reader.openBuffer(dbBuffer);
-async function getCountry(request) {
-    const prisma = utils.prismaClient();
+function getCountry(request) {
     let country;
     try {
         country = dbReader.country(request.ips?.[0] || request.ip).country?.isoCode;
@@ -17,25 +17,15 @@ async function getCountry(request) {
         let al = request.headers["accept-language"];
         const region = utils.parseAcceptLanguage(Array.isArray(al) ? al[0] : al)[0]
             ?.region;
-        if (region &&
-            (await prisma.countries.findUnique({
-                where: {
-                    ISO: region.toUpperCase(),
-                },
-            }))) {
+        if (region && countries.default[region.toUpperCase()]) {
             country = region;
         }
     }
     return country;
 }
-async function getContinent(country) {
-    const prisma = utils.prismaClient();
+function getContinent(country) {
     country = country.toUpperCase();
-    const { Continent } = (await prisma.countries.findUnique({
-        where: {
-            ISO: country,
-        },
-    })) ?? {};
+    const { Continent } = countries.default[country] ?? {};
     return Continent ?? undefined;
 }
 function country2region(country) {

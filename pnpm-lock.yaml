@@ -23,11 +23,11 @@ dependencies:
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
-  prisma:
-    specifier: ^5.16.2
-    version: 5.16.2
 
 devDependencies:
+  '@rollup/plugin-json':
+    specifier: ^6.1.0
+    version: 6.1.0(rollup@4.18.1)
   '@rollup/plugin-typescript':
     specifier: ^11.1.6
     version: 11.1.6(rollup@4.18.1)(tslib@2.6.3)(typescript@5.5.3)
@@ -37,6 +37,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.14.10
     version: 20.14.10
+  prisma:
+    specifier: ^5.16.2
+    version: 5.16.2
   rollup:
     specifier: ^4.18.1
     version: 4.18.1
@@ -336,11 +339,9 @@ packages:
 
   /@prisma/debug@5.16.2:
     resolution: {integrity: sha512-ItzB4nR4O8eLzuJiuP3WwUJfoIvewMHqpGCad+64gvThcKEVOtaUza9AEJo2DPqAOa/AWkFyK54oM4WwHeew+A==}
-    dev: false
 
   /@prisma/engines-version@5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303:
     resolution: {integrity: sha512-HkT2WbfmFZ9WUPyuJHhkiADxazHg8Y4gByrTSVeb3OikP6tjQ7txtSUGu9OBOBH0C13dPKN2qqH12xKtHu/Hiw==}
-    dev: false
 
   /@prisma/engines@5.16.2:
     resolution: {integrity: sha512-qUxwMtrwoG3byd4PbX6T7EjHJ8AUhzTuwniOGkh/hIznBfcE2QQnGakyEq4VnwNuttMqvh/GgPFapHQ3lCuRHg==}
@@ -350,7 +351,6 @@ packages:
       '@prisma/engines-version': 5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303
       '@prisma/fetch-engine': 5.16.2
       '@prisma/get-platform': 5.16.2
-    dev: false
 
   /@prisma/fetch-engine@5.16.2:
     resolution: {integrity: sha512-sq51lfHKfH2jjYSjBtMjP+AznFqOJzXpqmq6B9auWrlTJrMgZ7lPyhWUW7VU7LsQU48/TJ+DZeIz8s9bMYvcHg==}
@@ -358,13 +358,24 @@ packages:
       '@prisma/debug': 5.16.2
       '@prisma/engines-version': 5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303
       '@prisma/get-platform': 5.16.2
-    dev: false
 
   /@prisma/get-platform@5.16.2:
     resolution: {integrity: sha512-cXiHPgNLNyj22vLouPVNegklpRL/iX2jxTeap5GRO3DmCoVyIHmJAV1CgUMUJhHlcol9yYy7EHvsnXTDJ/PKEA==}
     dependencies:
       '@prisma/debug': 5.16.2
-    dev: false
+
+  /@rollup/plugin-json@6.1.0(rollup@4.18.1):
+    resolution: {integrity: sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.1)
+      rollup: 4.18.1
+    dev: true
 
   /@rollup/plugin-typescript@11.1.6(rollup@4.18.1)(tslib@2.6.3)(typescript@5.5.3):
     resolution: {integrity: sha512-R92yOmIACgYdJ7dJ97p4K69I8gg6IEHt8M7dUBxN3W6nrO8uUxX5ixl0yU/N3aZTi8WhPuICvOHXQvF6FaykAA==}
@@ -1134,7 +1145,6 @@ packages:
     requiresBuild: true
     dependencies:
       '@prisma/engines': 5.16.2
-    dev: false
 
   /process-warning@3.0.0:
     resolution: {integrity: sha512-mqn0kFRl0EoqhnL0GQ0veqFHyIN1yig9RHh/InzORTUiZHFRAur+aMtRkELNwGs9aNwKS6tg/An4NYBPGwvtzQ==}
