@@ -1,6 +1,6 @@
 {
   "name": "fastify-redirect",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -20,6 +20,10 @@
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "test": "rollup --config rollup.config.ts --configPlugin typescript --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wujiesixing/fastify-redirect.git"
   },
   "keywords": [
     "fastify",
