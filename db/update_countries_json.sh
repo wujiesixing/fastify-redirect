@@ -35,6 +35,9 @@ BEGIN {
   # Escape double quotes
   gsub(/"/, "\\\"", $0);
 
+  # Remove newline characters from EquivalentFipsCode field
+  gsub(/\r|\n/, "", $19);
+
   if (!first) {
     printf ",\n";
   }

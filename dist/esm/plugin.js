@@ -3,6 +3,8 @@ import { getCountry, country2region } from './region.js';
 
 var plugin = plugin$1(async function (fastify, options) {
     fastify.addHook("onRequest", async (request, reply) => {
+        if (!request.headers.accept?.includes("text/html"))
+            return;
         const { url } = request;
         if (fastify.hasRoute({
             url: url,

@@ -15,6 +15,8 @@ interface Options {
 export default plugin(
   async function (fastify, options: Options) {
     fastify.addHook("onRequest", async (request, reply) => {
+      if (!request.headers.accept?.includes("text/html")) return;
+
       const { url } = request;
 
       if (
