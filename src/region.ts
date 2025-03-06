@@ -23,7 +23,7 @@ export function getCountry(request: FastifyRequest) {
     const region = parseAcceptLanguage(Array.isArray(al) ? al[0] : al)[0]
       ?.region;
 
-    if (region && countries[region.toUpperCase() as "AD"]) {
+    if (region && countries[region as "AD"]) {
       country = region;
     }
   }

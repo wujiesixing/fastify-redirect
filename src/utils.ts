@@ -8,7 +8,7 @@ const acceptLanguageRegex =
 interface AcceptLanguage {
   language: string;
   script: string | null;
-  region: string;
+  region: string | null;
   quality: number;
 }
 
@@ -43,9 +43,9 @@ export function parseAcceptLanguage(al?: string) {
       }
 
       return {
-        language: ietf[0],
+        language: ietf[0]?.toLowerCase(),
         script,
-        region,
+        region: region ? region.toUpperCase() : null,
         quality: bits[1] ? parseFloat(bits[1].split("=")[1]) : 1.0,
       };
     })

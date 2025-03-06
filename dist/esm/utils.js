@@ -30,9 +30,9 @@ function parseAcceptLanguage(al) {
             region = ietf[2];
         }
         return {
-            language: ietf[0],
+            language: ietf[0]?.toLowerCase(),
             script,
-            region,
+            region: region ? region.toUpperCase() : null,
             quality: bits[1] ? parseFloat(bits[1].split("=")[1]) : 1.0,
         };
     })

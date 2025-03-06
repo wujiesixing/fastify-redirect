@@ -17,7 +17,7 @@ function getCountry(request) {
         let al = request.headers["accept-language"];
         const region = utils.parseAcceptLanguage(Array.isArray(al) ? al[0] : al)[0]
             ?.region;
-        if (region && countries.default[region.toUpperCase()]) {
+        if (region && countries.default[region]) {
             country = region;
         }
     }

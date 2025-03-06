@@ -1,7 +1,7 @@
 interface AcceptLanguage {
     language: string;
     script: string | null;
-    region: string;
+    region: string | null;
     quality: number;
 }
 export declare function parseAcceptLanguage(al?: string): AcceptLanguage[];
